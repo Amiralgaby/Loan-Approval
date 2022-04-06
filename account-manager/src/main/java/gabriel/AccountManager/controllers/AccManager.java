@@ -73,13 +73,27 @@ public class AccManager {
         }
     }
 
-    @GetMapping("{name}")
-    public ResponseEntity<BankAccount> getAccountByName(@PathVariable("name") String name) {
+    private ResponseEntity<BankAccount> getAccountByName(String name) {
         try {
             Optional<BankAccount> bankAccountOptional = service.searchFirstByName(name);
             return bankAccountOptional.map(bankAccount -> new ResponseEntity<>(bankAccount, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("{value}")
+    public ResponseEntity<BankAccount> get(@PathVariable("value") String value)
+    {
+        try{
+            Long parseLong = Long.parseLong(value);
+            Optional<BankAccount> bankAccountOptional = service.getById(parseLong);
+            if (bankAccountOptional.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(bankAccountOptional.get(),HttpStatus.OK);
+        }catch (NumberFormatException numberFormatException){
+            return getAccountByName(value);
         }
     }
 }
