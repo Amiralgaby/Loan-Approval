@@ -1,0 +1,21 @@
+{
+    "name": "gabriel/guzzle-client",
+    "description": "Client guzzle pour appeler mon API",
+    "type": "project",
+    "require": {
+        "guzzlehttp/guzzle": "^7.4",
+        "beberlei/assert": "^3.3"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Gabriel\\GuzzleClient\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Amiralgaby",
+            "email": "gaby.theuws@gmail.com"
+        }
+    ]
+}
