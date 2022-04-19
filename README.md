@@ -3,12 +3,12 @@
 ## Stucture
 
 Un dossier par projet API
- - AccountManager et CheckAccountRisk
- - Loan Approval
+ - Dossier **AccountManager** : services AccountManager et CheckAccountRisk
+ - Dossier **AppManager** ou **ApprovalManager** : service ApprovalManager et LoanApproval
 
 Un dossier par projet Client
  - Curl/bash si Linux
- - Guzzle pour le projet Loan Approval
+ - Guzzle pour administrer et faire interface d'administration , le nom du dossier doit être décidé
 
 ## Notes
 
