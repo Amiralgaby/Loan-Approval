@@ -13,11 +13,11 @@ class ClientAccountManager extends ClientApi {
 	}
 
 	public function getAll() {
-		return $this->request('GET', $this->route);
+		return $this->get($this->route);
 	}
 
 	public function getById($id) {
-		return $this->request('GET', $this->route . '/' . $id);
+		return $this->get($this->route . '/' . $id);
 	}
 
 	public function postBankAccount($nom,$prenom,$account,$risk) {
@@ -31,5 +31,9 @@ class ClientAccountManager extends ClientApi {
 				]
 			] 
 		);
+	}
+
+	public function deleteBankAccount($id) {
+		return $this->delete($this->route . '/' . $id);
 	}
 }
