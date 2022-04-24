@@ -3,7 +3,8 @@
 # accmanager post nom prenom account risk
 
 
-URL_API="https://resolute-planet-344619.oa.r.appspot.com/acc"
+# URL_API="https://resolute-planet-344619.oa.r.appspot.com/acc"
+URL_API="http://localhost:8080/acc"
 
 usage(){
 echo "Usage :"
@@ -42,7 +43,9 @@ post(){
 	jsonData="{\"nom\":\"$1\",\"prenom\":\"$2\",\"risk\":$risk,\"account\":$account}"
 	
 	echo "$jsonData"
-	curl -X POST ${URL_API} -d "$jsonData" -H "Content-Type: application/json"
+	status_code=$(curl -s -o /dev/null -w "%{http_code}" -X POST ${URL_API} -d "$jsonData" -H "Content-Type: application/json")
+
+	echo "status code de la response : $status_code"
 }
 
 get(){

@@ -1,7 +1,7 @@
 package gabriel.AccountManager.controllers;
 
+import gabriel.AccountManager.Utils;
 import gabriel.AccountManager.model.BankAccount;
-import gabriel.AccountManager.model.Risk;
 import gabriel.AccountManager.services.AccService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +22,11 @@ public class AccManager {
     @GetMapping("")
     public ResponseEntity<List<BankAccount>> getAccounts() {
         try {
+
             List<BankAccount> banksAccount = service.getBankAccounts();
+
             return new ResponseEntity<>(banksAccount,HttpStatus.OK);
+
         }catch (Exception e){
             return new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -33,15 +36,15 @@ public class AccManager {
     @ResponseBody
     public ResponseEntity<BankAccount> postBank(@RequestBody BankAccount bankAccount) {
         try {
-            String nom = bankAccount.getNom();
-            String prenom = bankAccount.getPrenom();
 
-            if (nom == null || nom.equals("") || prenom == null || prenom.equals("") || bankAccount.getRisk() == null){
+            if (!Utils.isModelValid(bankAccount)) {
                 return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
             }
 
             service.addBankAccount(bankAccount);
+
             return new ResponseEntity<>(bankAccount,HttpStatus.CREATED);
+
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -49,11 +52,15 @@ public class AccManager {
 
     public ResponseEntity<String> delete(Long id) {
         try {
+
             boolean hasBeenDeleted = service.deleteBankAccount(id);
+
             if (hasBeenDeleted) {
                 return new ResponseEntity<>(" Id \"" + id.toString() + "\" Successfully deleted",HttpStatus.NO_CONTENT);
             }
+
             return new ResponseEntity<>("Id \"" + id.toString() + "\" Not found",HttpStatus.NOT_FOUND);
+
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -62,8 +69,10 @@ public class AccManager {
     @DeleteMapping(value = "/{name}")
     public ResponseEntity<String> delete(@PathVariable("name") String name){
         try{
+
             Long parseLong = Long.parseLong(name);
             return delete(parseLong);
+
         }catch (NumberFormatException numberFormatException){
             boolean hasBeenDeleted = service.deleteBankAccount(name);
             if (hasBeenDeleted) {
@@ -86,11 +95,15 @@ public class AccManager {
     public ResponseEntity<BankAccount> get(@PathVariable("value") String value)
     {
         try{
+
             Long parseLong = Long.parseLong(value);
+
             Optional<BankAccount> bankAccountOptional = service.getById(parseLong);
+
             if (bankAccountOptional.isEmpty()){
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+            
             return new ResponseEntity<>(bankAccountOptional.get(),HttpStatus.OK);
         }catch (NumberFormatException numberFormatException){
             return getAccountByName(value);
