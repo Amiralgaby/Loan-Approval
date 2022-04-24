@@ -16,7 +16,7 @@ $suiteGet = new VerbGetTest($client);
 $suitePost = new VerbPostTest($client);
 $suiteDelete = new VerbDeleteTest($client);
 
-//$suitePost->runTestSuite();
+$suitePost->runTestSuite();
 $suiteGet->runTestSuite();
 $suiteDelete->runTestSuite();
 

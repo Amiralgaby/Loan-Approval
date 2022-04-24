@@ -51,10 +51,10 @@ class VerbPostTest extends Test {
 
 			$this->client->postBankAccount('un nom', 'un prenom', -38428, 0);
 			
-			throw new Exception('Le test : testInvalidPostNegativeAccount n\'aurait pas dû fonctionner, une erreur 400 était attendue');
+			throw new Exception('Le test : testInvalidPostNegativeAccount n\'aurait pas dû fonctionner, une erreur 422 était attendue');
 		} catch (ClientException $clientException) {
 			
-			Assertion::eq(400,$clientException->getResponse()->getStatusCode());
+			Assertion::eq(422,$clientException->getResponse()->getStatusCode());
 			
 			echo "testInvalidPostNegativeAccount Ok\n";
 		}
