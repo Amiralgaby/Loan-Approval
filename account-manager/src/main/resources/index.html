@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Loan-Approval HOME</title>
+</head>
+<body>
+	<h1>Bienvenue sur le home de Loan-Approval</h1>
+	<p>Quelques liens : </p>
+	<ul>
+		<li><a href="https://github.com/Amiralgaby/Loan-Approval">Github du projet (voir le dossier account manager)</a></li>
+		<li><a href="https://resolute-planet-344619.oa.r.appspot.com/acc">lien vers le point d'entrée de l'account manager</a></li>
+	</ul>
+
+	<h2>Le service <strong>Account Manager</strong></h2>
+		<p>Vous êtes actuellement sur la page HOME de ce service</p>
+		<ul>
+			<li>Pour GET all compte : <a href="./acc">GET /acc</a></li>
+			<li>Pour GET un compte précis : <a href="./acc/id_du_compte">https://resolute-planet-344619.oa.r.appspot.com/acc/<strong>{id_du_compte}</strong></a></li>
+			<li>Pour DELETE et POST c'est la même URL que GET un compte précis sauf que le verbe de votre requête doit être changé</li>
+		</ul>
+		<div style="margin-left: 10%;">
+			<h3>GET dynamic link</h3>
+			<input placeholder="id" type="text" id="inputId"/>
+			<p><a id="linkGet" href="./acc/id">https://resolute-planet-344619.oa.r.appspot.com/acc/id</a></p>
+		</div>
+		<p>prévoir post et delete sur cette page</p>
+
+	<h2>Le service<strong>Approval Manager</strong></h2>
+		<p><a href="https://github.com/Amiralgaby/Loan-Approval/issues/1">API - service - AppManager - gérer les approval</a> (issue n°1 Github)</p>
+
+	<h2>Le service <strong>Loan Approval</strong></h2>
+		<p><a href="https://github.com/Amiralgaby/Loan-Approval/issues/2">l'issue n°2 sur Github</a></p>
+	<script>
+	const element = document.getElementById("inputId");
+	console.log(element);
+	let linkGet = document.getElementById("linkGet");
+	console.log(linkGet);
+	element.addEventListener('input', function(){
+		console.log('change here ' + this.value);
+		linkGet.href = linkGet.innerHTML = "https://resolute-planet-344619.oa.r.appspot.com/acc/" + this.value;
+	});
+	</script>
+</body>
+</html>
