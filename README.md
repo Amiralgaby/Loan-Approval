@@ -8,7 +8,61 @@ Un dossier par projet API
 
 Un dossier par projet Client
  - Curl/bash si Linux
- - Guzzle pour administrer et faire interface d'administration , le nom du dossier doit être décidé
+ - Guzzle pour tester le service composite en prévoyant la plupart des cas
+
+### LoanApproval
+
+| Verbe | Route API | Localisation dans le projet |
+| --- | --- | :---: |
+| GET | test?accountNum={bank_account_id}&valeur={account} | *à compléter* |
+
+### AccountManager
+
+endpoint du service : https://resolute-planet-344619.oa.r.appspot.com/
+
+| Verbe | Route API | Data | Localisation dans le projet |
+| --- | --- | :---: | :---: |
+| GET | acc/ | - | [AccountManager.java](https://github.com/Amiralgaby/Loan-Approval/blob/main/account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java#L22) |
+| GET | acc/{bank_account_id} | - | [AccountManager.java](https://github.com/Amiralgaby/Loan-Approval/blob/bc8f7ffc4130a2cb703f761117031b9aa76d6372/account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java#L94) |
+| POST | acc/ | [BankAccount.java](account-manager/src/main/java/gabriel/AccountManager/model/BankAccount.java) | [AccountManager.java](https://github.com/Amiralgaby/Loan-Approval/blob/bc8f7ffc4130a2cb703f761117031b9aa76d6372/account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java#L35) |
+| DELETE | acc/{bank_account_id} | - | [AccountManager.java](https://github.com/Amiralgaby/Loan-Approval/blob/bc8f7ffc4130a2cb703f761117031b9aa76d6372/account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java#L69)
+
+#### CheckAccountRisk
+
+| Verbe | Route API | Localisation dans le projet |
+| --- | --- | :---: |
+| GET | check/{bank_account_id} | [CheckAccountRisk.java](account-manager/src/main/java/gabriel/AccountManager/controllers/CheckAccountRisk.java) |
+
+### ApprovalManager
+
+| Verbe | Route API | Data JSON | Localisation dans le projet |
+| --- | --- | --- | :---: |
+
+## Les services
+ - **AccManager** : comptes bancaires 
+	 - Ajouter
+	 - Supprimer
+	 - Lister
+  - **AppManager** : approval
+	 - Ajouter
+	 - Supprimer
+	 - Lister
+- **Check_account** : vérifier le risque pour un compte 
+	 - retourne un risque (*"high"* ou  *"low"*) suivant un compte
+- **LoanApproval** : reçoit des demandes de crédits (nom, somme  au moins)
+	 - Si la `somme < 10k` 
+		 - Appel de ***CheckAccountRisk*** pour connaitre le risque
+			 - Si le `risque == "high"`
+				 - Appel de ***AppManager***
+			 - Sinon
+				 - La réponse est *"approved"* et la somme totale du compte est donnée 
+	 -  Si la `somme >= 10k`
+		 - Appel de ***AppManager***
+
+	 - Si ***AppManager*** est appelé pour connaitre la réponse
+		 - La réponse est retournée à l'utilisateur avec son compte
+			 - Si la `réponse == "accepeted"`
+				 - Le compte est crédité et le message *"approved"* est renvoyé
 
 ## Notes
 
