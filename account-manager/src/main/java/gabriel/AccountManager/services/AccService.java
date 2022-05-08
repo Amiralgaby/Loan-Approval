@@ -14,8 +14,8 @@ public class AccService {
     public List<BankAccount> getBankAccounts() {
         return ofy().load().type(BankAccount.class).list();
     }
-    public void addBankAccount(BankAccount employee) {
-        ofy().save().entity(employee).now();
+    public void saveBankAccount(BankAccount bankAccount) {
+        ofy().save().entity(bankAccount).now();
     }
 
     public Optional<BankAccount> searchFirstByName(String name){

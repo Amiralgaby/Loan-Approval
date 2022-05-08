@@ -22,11 +22,9 @@ public class AccManager {
     @GetMapping("")
     public ResponseEntity<List<BankAccount>> getAccounts() {
         try {
-
             List<BankAccount> banksAccount = service.getBankAccounts();
 
             return new ResponseEntity<>(banksAccount,HttpStatus.OK);
-
         }catch (Exception e){
             return new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -36,23 +34,50 @@ public class AccManager {
     @ResponseBody
     public ResponseEntity<BankAccount> postBank(@RequestBody BankAccount bankAccount) {
         try {
+            if (!Utils.isModelValid(bankAccount)) {
+                return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+            }
+
+            service.saveBankAccount(bankAccount);
+
+            return new ResponseEntity<>(bankAccount,HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<BankAccount> putBankAccount(@PathVariable("id") String id, @RequestBody BankAccount bankAccount) {
+        try {
+            Optional<BankAccount> optionalBankAccount = service.getById(Long.parseLong(id));
+
+            if (optionalBankAccount.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
 
             if (!Utils.isModelValid(bankAccount)) {
                 return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
             }
 
-            service.addBankAccount(bankAccount);
+            BankAccount myBankAccount = optionalBankAccount.get();
 
-            return new ResponseEntity<>(bankAccount,HttpStatus.CREATED);
+            myBankAccount.setModelValue(bankAccount.getNom(),bankAccount.getPrenom(),bankAccount.getAccount(),bankAccount.getRisk());
 
-        }catch (Exception e){
+            service.saveBankAccount(myBankAccount);
+
+            return new ResponseEntity<>(myBankAccount,HttpStatus.OK);
+
+        } catch (NumberFormatException numberFormatException) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     public ResponseEntity<String> delete(Long id) {
         try {
-
             boolean hasBeenDeleted = service.deleteBankAccount(id);
 
             if (hasBeenDeleted) {
@@ -66,13 +91,11 @@ public class AccManager {
         }
     }
 
-    @DeleteMapping(value = "/{name}")
-    public ResponseEntity<String> delete(@PathVariable("name") String name){
+    @DeleteMapping(value = "/{nameOrId}")
+    public ResponseEntity<String> delete(@PathVariable("nameOrId") String name){
         try{
-
             Long parseLong = Long.parseLong(name);
             return delete(parseLong);
-
         }catch (NumberFormatException numberFormatException){
             boolean hasBeenDeleted = service.deleteBankAccount(name);
             if (hasBeenDeleted) {
@@ -91,11 +114,9 @@ public class AccManager {
         }
     }
 
-    @GetMapping("{value}")
-    public ResponseEntity<BankAccount> get(@PathVariable("value") String value)
-    {
+    @GetMapping("/{value}")
+    public ResponseEntity<BankAccount> get(@PathVariable("value") String value) {
         try{
-
             Long parseLong = Long.parseLong(value);
 
             Optional<BankAccount> bankAccountOptional = service.getById(parseLong);

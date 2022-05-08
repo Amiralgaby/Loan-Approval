@@ -42,4 +42,11 @@ public class BankAccount {
     }
 
     public Long getUuid(){return uuid;}
+
+    public void setModelValue(String nom, String prenom, double account, Risk risk) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.account = account;
+        this.risk = risk;
+    }
 }
