@@ -21,11 +21,14 @@ Un dossier par projet Client
 endpoint du service : https://resolute-planet-344619.oa.r.appspot.com/
 
 | Verbe | Route API | Data | Localisation dans le projet |
-| --- | --- | :---: | :---: |
-| GET | acc/ | - | [AccountManager.java](https://github.com/Amiralgaby/Loan-Approval/blob/main/account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java#L22) |
-| GET | acc/{bank_account_id} | - | [AccountManager.java](https://github.com/Amiralgaby/Loan-Approval/blob/bc8f7ffc4130a2cb703f761117031b9aa76d6372/account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java#L94) |
-| POST | acc/ | [BankAccount.java](account-manager/src/main/java/gabriel/AccountManager/model/BankAccount.java) | [AccountManager.java](https://github.com/Amiralgaby/Loan-Approval/blob/bc8f7ffc4130a2cb703f761117031b9aa76d6372/account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java#L35) |
-| DELETE | acc/{bank_account_id} | - | [AccountManager.java](https://github.com/Amiralgaby/Loan-Approval/blob/bc8f7ffc4130a2cb703f761117031b9aa76d6372/account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java#L69)
+| --- | --- | --- | --- |
+| GET | acc/ | - | GetMapping in [AccountManager.java](account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java) |
+| GET | acc/{bank_account_id} | - | GetMapping("{id}") in [AccountManager.java](/account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java) |
+| POST | acc/ | format JSON de BankAccount.java | PostMapping("{id}") in [AccountManager.java](account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java#L35) |
+| PUT | acc/{bank_account_id} | format JSON de BankAccount.java | PutMapping("{id}") in [AccountManager.java](account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java) |
+| DELETE | acc/{bank_account_id} | - | DeleteMapping("{id}") in [AccountManager.java](account-manager/src/main/java/gabriel/AccountManager/controllers/AccManager.java)
+
+format JSON pour BankAccount : `{"nom":"string","prenom":"string","account":int,"risk":[0-1]}`
 
 #### CheckAccountRisk
 
