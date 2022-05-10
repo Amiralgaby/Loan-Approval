@@ -36,4 +36,16 @@ class ClientAccountManager extends ClientApi {
 	public function deleteBankAccount($id) {
 		return $this->delete($this->route . '/' . $id);
 	}
+
+	public function updateBankAccount($uuid,$nom,$prenom,$account,$risk) {
+		return $this->request('PUT', $this->route . '/' . $uuid,
+			[ 'json' => 
+				[
+					"nom" => $nom,
+					"prenom" => $prenom,
+					"account" => $account,
+					"risk" => $risk,
+				]
+			]);
+	}
 }

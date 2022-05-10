@@ -14,7 +14,8 @@ class VerbGetTest extends Test {
 	public function runTestSuite() {
 		$this->testGetAll();
 		$this->testGetValidId();
-		$this->testGetInvalidId();
+		$this->testGetInvalidIdLong();
+		$this->testGetInvalidIdName();
 	}
 
 	/* Get /acc */
@@ -50,16 +51,30 @@ class VerbGetTest extends Test {
 	}
 
 	/* Get /acc/{id} */
-	public function testGetInvalidId()
+	public function testGetInvalidIdName()
 	{
-		echo "testGetInvalidId started...\n";
+		echo "testGetInvalidIdName started...\n";
 
 		try {
-			$res = $this->client->getById('anomalie123456789');
+			$res = $this->client->getById('anomalieName');
 		} catch (ClientException $clientException) {
 			Assertion::eq(404,$clientException->getResponse()->getStatusCode());
 		}
 
-		echo "testGetInvalidId Ok\n";
+		echo "testGetInvalidIdName Ok\n";
+	}
+
+	/* Get /acc/{id} */
+	public function testGetInvalidIdLong()
+	{
+		echo "testGetInvalidIdLong started...\n";
+
+		try {
+			$res = $this->client->getById('123456789');
+		} catch (ClientException $clientException) {
+			Assertion::eq(404,$clientException->getResponse()->getStatusCode());
+		}
+
+		echo "testGetInvalidIdLong Ok\n";
 	}
 }
