@@ -16,7 +16,7 @@ composer install
 Lancer le script
 
 ```sh
-composer exec src/client.php
+composer exec src/account-manager-suite-test/client.php
 ```
 
 ## Ressources

@@ -2,7 +2,7 @@
 
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 require __DIR__ . '/ClientAccountManager.php';
 require __DIR__ . '/VerbGetTest.php';
