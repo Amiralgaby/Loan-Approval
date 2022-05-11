@@ -3,18 +3,36 @@
 <?php
 
 require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__ . '/../account-manager-suite-test/ClientAccountManager.php';
 
 use GuzzleHttp\Client;
 use Assert\Assertion;
 use GuzzleHttp\Exception\ClientException;
 
-# https://pacific-beach-06731.herokuapp.com/test?accountNum=5655374346584064&valeur=15000
 
+// DEFINITION DES VARIABLES
 $baseUriLoanApproval = 'https://pacific-beach-06731.herokuapp.com/';
 $routeApi = 'test';
 
 $client = new Client(['base_uri' => $baseUriLoanApproval]);
 
+
+// RECUPERATION DES COMPTES BANCAIRES DISPONIBLES
+$clientAccountManager = new ClientAccountManager();
+$bankAccountDispo = [];
+try 
+{
+	$res = $clientAccountManager->getAll();
+	$bankAccountDispo = json_decode($res->getBody(),true);
+}
+catch (ClientException $clientException)
+{
+	echo "Error pour récupérer les bankAccount disponibles";
+	return;
+}
+
+
+// FONCTION POUR FAIRE L'APPEL À L'API
 function getResponseFromLoanApproval($accountNum,$valeur) {
 	global $client, $routeApi;
 	return $client->get($routeApi . '?accountNum=' . $accountNum . '&valeur=' . $valeur);
@@ -35,11 +53,20 @@ catch (ClientException $clientException)
 	echo "Success : obtain status code 404\n";
 }
 
-echo "\n\n";
 
 // test :
 // 		accountNum : valide
 // 		valeur : moins du plafond
-//$res = getResponseFromLoanApproval();
-
+echo "\n\ntest :\n\taccountNum valide\n\tvaleur < 10 000\n";
+try
+{
+	$numCompte = $bankAccountDispo[0]["uuid"];
+	$res = getResponseFromLoanApproval($numCompte,1234);
+	Assertion::eq(200, $res->getStatusCode());
+	echo "Success : obtain status code 200\n";
+}
+catch (ClientException $clientException)
+{
+	echo "Not excepted : attendu une réponse 200, reçu ".$clientException->getResponse()->getStatusCode()."\n";
+}
 ?>

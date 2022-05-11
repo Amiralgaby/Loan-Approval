@@ -13,11 +13,10 @@ Installer les dépendances
 composer install
 ```
 
-Lancer le script
+Lancer les scripts : utiliser la CLI php avec le script
 
-```sh
-composer exec src/account-manager-suite-test/client.php
-```
+example :
+```php src/loan-approval-suite-test/program.php```
 
 ## Ressources
 
