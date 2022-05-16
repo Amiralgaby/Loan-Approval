@@ -1,9 +1,11 @@
-# Guzzle Client pour l'API
+# Guzzle Client - Test suite pour les API
 
 ## Description
-Actuellement ce projet de client API est centré sur le projet de service API Rest AccountManager
+Ces projets en PHP utilisant la lib Guzzle permettent de tester nos APIs
 
-Il permet d'appeler le service avec des options
+Structure :
+
+Chaque suite de test est propre à une API et à son dossier dans [le répertoire src](src/)
 
 ## Getting started
 
