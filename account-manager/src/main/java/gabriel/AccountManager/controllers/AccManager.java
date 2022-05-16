@@ -81,10 +81,10 @@ public class AccManager {
             boolean hasBeenDeleted = service.deleteBankAccount(id);
 
             if (hasBeenDeleted) {
-                return new ResponseEntity<>(" Id \"" + id.toString() + "\" Successfully deleted",HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
-            return new ResponseEntity<>("Id \"" + id.toString() + "\" Not found",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -99,9 +99,9 @@ public class AccManager {
         }catch (NumberFormatException numberFormatException){
             boolean hasBeenDeleted = service.deleteBankAccount(name);
             if (hasBeenDeleted) {
-                return new ResponseEntity<>("bankAccount appartenant à \"" + name + "\" Successfully deleted",HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return new ResponseEntity<>("bankAccount appartenant à \"" + name + "\" Not found",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
