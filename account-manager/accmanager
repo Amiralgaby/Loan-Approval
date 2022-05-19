@@ -3,16 +3,16 @@
 # accmanager post nom prenom account risk
 
 
-# URL_API="https://resolute-planet-344619.oa.r.appspot.com/acc"
-URL_API="http://localhost:8080/acc"
+URL_API="https://resolute-planet-344619.oa.r.appspot.com/acc"
+# URL_API="http://localhost:8080/acc"
 
 usage(){
 cat <<EOF 
 Usage : ${0##.*/} [post|get|delete|add] VALUES...
 
 VALUES 	post : NOM PRENOM RISK [ACCOUNT]
-	get : [all]
-	delete : [ID|NOM]
+	get : [ID]
+	delete : ID|NOM
 	add ID ACCOUNT_TO_ADD
 EOF
 }
@@ -51,11 +51,8 @@ post(){
 	echo "status code de la response : $status_code"
 }
 
-get(){
-	if [ "$#" -eq 0 ]
-	then
-		curl "${URL_API}"
-	fi
+get() {
+	curl "${URL_API}/$1" 
 }
 
 delete(){
