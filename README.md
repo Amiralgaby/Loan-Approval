@@ -30,6 +30,11 @@ endpoint du service : https://resolute-planet-344619.oa.r.appspot.com/
 
 format JSON pour BankAccount : `{"nom":"string","prenom":"string","account":int,"risk":[0-1]}`
 
+#### AddAccount
+| Verbe | Route API | Localisation dans le projet |
+| --- | --- | :---: |
+| PUT | acc/add/{bank_account_id}?accountToAdd={accountToAdd} | [AddAccountController.java](account-manager/src/main/java/gabriel/AccountManager/controllers/AddAccountController.java) |
+
 #### CheckAccountRisk
 
 | Verbe | Route API | Localisation dans le projet |
