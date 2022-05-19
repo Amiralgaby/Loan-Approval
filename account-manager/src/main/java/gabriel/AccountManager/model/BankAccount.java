@@ -49,4 +49,8 @@ public class BankAccount {
         this.account = account;
         this.risk = risk;
     }
+
+    public void addAccount(double account) {
+        this.account += account;
+    }
 }

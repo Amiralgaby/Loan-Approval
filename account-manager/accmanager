@@ -7,11 +7,14 @@
 URL_API="http://localhost:8080/acc"
 
 usage(){
-echo "Usage :"
-echo "${0##.*/} [post|get|delete] OPTIONS..."
-echo "Options post : NOM PRENOM RISK [ACCOUNT] # le risk est 0 ou 1"
-echo "Options get : [all]"
-echo "Options delete : [ID || NOM]"
+cat <<EOF 
+Usage : ${0##.*/} [post|get|delete|add] VALUES...
+
+VALUES 	post : NOM PRENOM RISK [ACCOUNT]
+	get : [all]
+	delete : [ID|NOM]
+	add ID ACCOUNT_TO_ADD
+EOF
 }
 
 
@@ -69,6 +72,16 @@ delete(){
 	fi
 }
 
+updateAddAccount() {
+	if [ "$#" -lt 2 ]
+	then
+		usage
+		exit 2
+	fi
+
+	curl -X PUT "${URL_API}/add/$1?accountToAdd=$2"
+}
+
 if [ "$#" -eq 0 ]
 then
 	usage
@@ -87,6 +100,10 @@ case "$1" in
 	"get")
 		shift
 		get "$@"
+		;;
+	"add")
+		shift
+		updateAddAccount "$@"
 		;;
 	*)
 		usage
