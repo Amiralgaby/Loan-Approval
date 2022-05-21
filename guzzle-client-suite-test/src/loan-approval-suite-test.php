@@ -2,8 +2,8 @@
 
 <?php
 
-require __DIR__ . '/../../vendor/autoload.php';
-require __DIR__ . '/../account-manager-suite-test/ClientAccountManager.php';
+require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/account-manager-suite-test/ClientAccountManager.php';
 
 use GuzzleHttp\Client;
 use Assert\Assertion;
@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\ClientException;
 
 // DEFINITION DES VARIABLES
 $baseUriLoanApproval = 'https://pacific-beach-06731.herokuapp.com/';
-$routeApi = 'test';
+$routeApi = 'ask/credit';
 
 $client = new Client(['base_uri' => $baseUriLoanApproval]);
 

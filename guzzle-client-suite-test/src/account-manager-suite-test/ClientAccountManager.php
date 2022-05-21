@@ -48,4 +48,8 @@ class ClientAccountManager extends ClientApi {
 				]
 			]);
 	}
+	
+	public function checkRisk($id) {
+        return $this->get('check/'.$id);
+	}
 }
