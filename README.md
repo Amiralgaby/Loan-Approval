@@ -12,13 +12,15 @@ Un dossier par projet Client
 
 ### LoanApproval
 
+URI de base : https://pacific-beach-06731.herokuapp.com
+
 | Verbe | Route API | Localisation dans le projet |
 | --- | --- | :---: |
-| GET | test?accountNum={bank_account_id}&valeur={account} | *à compléter* |
+| GET | ask/credit?accountNum={bank_account_id}&valeur={account} | *à compléter* |
 
 ### AccountManager
 
-endpoint du service : https://resolute-planet-344619.oa.r.appspot.com/
+URI de base : https://resolute-planet-344619.oa.r.appspot.com/
 
 | Verbe | Route API | Data | Localisation dans le projet |
 | --- | --- | --- | --- |
@@ -43,8 +45,11 @@ format JSON pour BankAccount : `{"nom":"string","prenom":"string","account":int,
 
 ### ApprovalManager
 
-| Verbe | Route API | Data JSON | Localisation dans le projet |
+URI de base : la même que celle du service Loan-Approval
+
+| Verbe | Route API | Data JSON |
 | --- | --- | --- | :---: |
+| GET | /list/approvals | - | 
 
 ## Les services
  - **AccManager** : comptes bancaires 
