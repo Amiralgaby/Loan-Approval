@@ -47,9 +47,9 @@ format JSON pour BankAccount : `{"nom":"string","prenom":"string","account":int,
 
 URI de base : la même que celle du service Loan-Approval
 
-| Verbe | Route API | Data JSON |
-| --- | --- | --- | :---: |
-| GET | /list/approvals | - | 
+| Verbe | Route API | link |
+| --- | --- | --- |
+| GET | /list/approvals | [/list/approvals](https://pacific-beach-06731.herokuapp.com/list/approvals) | 
 
 ## Les services
  - **AccManager** : comptes bancaires 
