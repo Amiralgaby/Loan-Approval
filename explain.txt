@@ -1,0 +1,39 @@
+un fichier texte me précisant qui a fait quoi, et l’architecture globale du service composite
+(ou sont les services, la base, etc.)
+
+Gabriel Theuws :
+	- services: AccountManager & CheckAccountRisk
+	- suite de test Guzzle
+
+Maxence Desbouys :
+	- services : LoanApproval & ApprovalManager
+
+
+Structure :
+
+.
+├── account-manager
+│   └── src
+│       ├── main
+│       │   ├── appengine
+│       │   ├── java
+│       │   │   └── gabriel
+│       │   │       └── AccountManager
+│       │   │           ├── controllers
+│       │   │           ├── model
+│       │   │           └── services
+│       │   └── resources
+│       └── test
+│           └── java
+└── guzzle-client-suite-test
+    └── src
+        └── account-manager-suite-test
+
+Le dossier account-manager contient les sources pour les services AccountManager et CheckAccountRisk
+
+le dossier guzzle-client-suite-test contient 3 scripts éxecutables, pour tester AccountManager, LoanApproval et CheckAccountRisk
+
+Pour faire des requête via shell, un script est présent à la racine du dossier account-manager.
+
+Le script shell run-instances.sh permet de lancer plusieurs instances des scripts éxecutables présents dans le dossier guzzle-client-suite-test.
+
